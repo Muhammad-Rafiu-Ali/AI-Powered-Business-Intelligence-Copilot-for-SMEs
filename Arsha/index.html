@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>AI-Powered BI Copilot for SMEs</title>
+  <meta name="description" content="A Streamlit-based business intelligence copilot for SMEs to upload sales datasets, generate dashboards, run machine learning models, ask business questions, and download reports.">
+  <meta name="keywords" content="Business Intelligence, Streamlit, Machine Learning, Sales Dashboard, SME Analytics, Python, Data Science">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <!-- Custom Project Styling -->
+  <style>
+    :root {
+      --accent: #47b2e4;
+      --accent-dark: #209dd8;
+      --deep: #172a45;
+    }
+    .hero .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      margin-bottom: 18px;
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+    .hero .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 26px;
+    }
+    .hero .hero-stat {
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 16px;
+      padding: 14px 18px;
+      color: #fff;
+      min-width: 130px;
+    }
+    .hero .hero-stat strong {
+      display: block;
+      font-size: 22px;
+      line-height: 1.1;
+    }
+    .tech-stack-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 18px;
+      text-align: center;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+      font-weight: 700;
+      color: #37517e;
+      height: 100%;
+    }
+    .tech-stack-card i {
+      display: block;
+      font-size: 28px;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .feature-highlight {
+      border-left: 4px solid var(--accent);
+      background: #fff;
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+    }
+    .model-card h4 {
+      color: #37517e;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .model-card .model-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: #eaf7ff;
+      color: var(--accent-dark);
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 26px;
+      margin-bottom: 16px;
+    }
+    .portfolio-info p { margin-bottom: 0; }
+    .launch-note {
+      font-size: 14px;
+      color: rgba(255,255,255,0.78);
+      margin-top: 10px;
+    }
+    .contact .quick-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 6px 10px 6px 0;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #f3f8fc;
+      color: #37517e;
+      font-weight: 600;
+    }
+  </style>
+
+
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <h1 class="sitename">BI Copilot</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="#hero" class="active">Home</a></li>
+          <li><a href="#about">Project</a></li>
+          <li><a href="#services">Features</a></li>
+          <li><a href="#work-process">Workflow</a></li>
+          <li><a href="#models">ML Models</a></li>
+          <li><a href="#portfolio">Screenshots</a></li>
+          <li><a href="#faq-2">FAQ</a></li>
+          <li><a href="#contact">Developer</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="http://localhost:8501" target="_blank">Launch App</a>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section dark-background">
+      <div class="container">
+        <div class="row gy-4 align-items-center">
+          <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="zoom-out">
+            <span class="badge-pill"><i class="bi bi-stars"></i> Streamlit + Machine Learning + BI Dashboard</span>
+            <h1>AI-Powered Business Intelligence Copilot for SMEs</h1>
+            <p>Upload any sales dataset and instantly generate KPIs, dashboards, ML-based insights, business recommendations, and downloadable reports.</p>
+            <div class="d-flex flex-wrap gap-2">
+              <a href="http://localhost:8501" class="btn-get-started" target="_blank">Launch Dashboard</a>
+              <a href="https://github.com/Muhammad-Rafiu-Ali" class="btn-watch-video d-flex align-items-center" target="_blank"><i class="bi bi-github"></i><span>View GitHub</span></a>
+            </div>
+            <p class="launch-note">Replace localhost with your Streamlit Cloud link after deployment.</p>
+            <div class="hero-stats">
+              <div class="hero-stat"><strong>4</strong><span>ML Modules</span></div>
+              <div class="hero-stat"><strong>Any</strong><span>Sales Dataset</span></div>
+              <div class="hero-stat"><strong>1-Click</strong><span>Report Export</span></div>
+            </div>
+          </div>
+          <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="200">
+            <img src="assets/img/hero-img.png" class="img-fluid animated" alt="Business intelligence dashboard illustration">
+          </div>
+        </div>
+      </div>
+    </section><!-- /Hero Section -->
+
+    <!-- Tech Stack Section -->
+    <section id="clients" class="clients section light-background">
+      <div class="container" data-aos="zoom-in">
+        <div class="row gy-4 justify-content-center">
+          <div class="col-6 col-md-4 col-lg-2"><div class="tech-stack-card"><i class="bi bi-filetype-py"></i>Python</div></div>
+          <div class="col-6 col-md-4 col-lg-2"><div class="tech-stack-card"><i class="bi bi-window-sidebar"></i>Streamlit</div></div>
+          <div class="col-6 col-md-4 col-lg-2"><div class="tech-stack-card"><i class="bi bi-table"></i>Pandas</div></div>
+          <div class="col-6 col-md-4 col-lg-2"><div class="tech-stack-card"><i class="bi bi-bar-chart"></i>Plotly</div></div>
+          <div class="col-6 col-md-4 col-lg-2"><div class="tech-stack-card"><i class="bi bi-cpu"></i>Scikit-learn</div></div>
+          <div class="col-6 col-md-4 col-lg-2"><div class="tech-stack-card"><i class="bi bi-file-earmark-spreadsheet"></i>Excel/CSV</div></div>
+        </div>
+      </div>
+    </section><!-- /Tech Stack Section -->
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Project Overview</h2>
+        <p>A practical analytics tool designed to help SMEs understand sales performance without needing advanced BI or data science skills.</p>
+      </div>
+
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
+            <p>
+              This project combines business intelligence, machine learning and a rule-based copilot into one simple web application. Users can upload CSV or Excel data, map columns, explore dashboards, run ML models and export reports.
+            </p>
+            <ul>
+              <li><i class="bi bi-check2-circle"></i> <span>Works with different sales datasets through flexible column mapping.</span></li>
+              <li><i class="bi bi-check2-circle"></i> <span>Generates KPIs, trends, top products, top customers and regional insights.</span></li>
+              <li><i class="bi bi-check2-circle"></i> <span>Includes forecasting, sales prediction, customer segmentation and anomaly detection.</span></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="feature-highlight">
+              <h4>Problem it solves</h4>
+              <p>Small businesses often have sales data but no easy way to convert it into decisions. This app turns raw data into understandable dashboards and recommendations.</p>
+            </div>
+            <div class="feature-highlight">
+              <h4>Portfolio value</h4>
+              <p>The project demonstrates Python, Streamlit, data preprocessing, visualization, machine learning and product-style deployment skills.</p>
+            </div>
+            <a href="http://localhost:8501" class="read-more" target="_blank"><span>Open App</span><i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </section><!-- /About Section -->
+
+    <!-- Why Us Section -->
+    <section id="why-us" class="section why-us light-background" data-builder="section">
+      <div class="container-fluid">
+        <div class="row gy-4">
+          <div class="col-lg-7 d-flex flex-column justify-content-center order-2 order-lg-1">
+            <div class="content px-xl-5" data-aos="fade-up" data-aos-delay="100">
+              <h3><span>Why this </span><strong>BI Copilot matters</strong></h3>
+              <p>It reduces manual analysis work and gives business users a guided way to understand what is happening in their sales data.</p>
+            </div>
+
+            <div class="faq-container px-xl-5" data-aos="fade-up" data-aos-delay="200">
+              <div class="faq-item faq-active">
+                <h3><span>01</span> Flexible for different datasets</h3>
+                <div class="faq-content"><p>The app does not depend on one fixed column structure. Users can map sales, date, customer, region, product and category columns from the sidebar.</p></div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+              <div class="faq-item">
+                <h3><span>02</span> Combines BI and ML</h3>
+                <div class="faq-content"><p>Instead of only showing charts, the app also runs forecasting, prediction, clustering and anomaly detection models.</p></div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+              <div class="faq-item">
+                <h3><span>03</span> Generates readable business recommendations</h3>
+                <div class="faq-content"><p>The copilot and report module convert analysis results into simple business language that non-technical users can understand.</p></div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-5 order-1 order-lg-2 why-us-img">
+            <img src="assets/img/why-us.png" class="img-fluid" alt="Analytics workflow illustration" data-aos="zoom-in" data-aos-delay="100">
+          </div>
+        </div>
+      </div>
+    </section><!-- /Why Us Section -->
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills section">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row">
+          <div class="col-lg-6 d-flex align-items-center">
+            <img src="assets/img/illustration/illustration-10.webp" class="img-fluid" alt="Data analysis illustration">
+          </div>
+
+          <div class="col-lg-6 pt-4 pt-lg-0 content">
+            <h3>Core capabilities</h3>
+            <p class="fst-italic">The app is designed as an end-to-end analytics workflow from upload to decision support.</p>
+
+            <div class="skills-content skills-animation">
+              <div class="progress"><span class="skill"><span>Dataset Upload & Cleaning</span> <i class="val">100%</i></span><div class="progress-bar-wrap"><div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div></div></div>
+              <div class="progress"><span class="skill"><span>Interactive Dashboards</span> <i class="val">95%</i></span><div class="progress-bar-wrap"><div class="progress-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div></div></div>
+              <div class="progress"><span class="skill"><span>Machine Learning Insights</span> <i class="val">90%</i></span><div class="progress-bar-wrap"><div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div></div></div>
+              <div class="progress"><span class="skill"><span>Business Copilot & Reports</span> <i class="val">85%</i></span><div class="progress-bar-wrap"><div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- /Skills Section -->
+
+    <!-- Services Section -->
+    <section id="services" class="services section light-background">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Features</h2>
+        <p>Everything needed to move from raw sales data to practical business insights.</p>
+      </div>
+
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100"><div class="service-item position-relative"><div class="icon"><i class="bi bi-cloud-upload icon"></i></div><h4><a href="#" class="stretched-link">Flexible Upload</a></h4><p>Upload CSV or Excel files and map columns for different sales dataset structures.</p></div></div>
+          <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200"><div class="service-item position-relative"><div class="icon"><i class="bi bi-speedometer2 icon"></i></div><h4><a href="#" class="stretched-link">KPI Dashboard</a></h4><p>View sales value, orders, customers, averages, missing values and trend summaries.</p></div></div>
+          <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="300"><div class="service-item position-relative"><div class="icon"><i class="bi bi-graph-up-arrow icon"></i></div><h4><a href="#" class="stretched-link">Visual Analytics</a></h4><p>Explore sales by region, category, segment, product, customer and monthly trends.</p></div></div>
+          <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="400"><div class="service-item position-relative"><div class="icon"><i class="bi bi-robot icon"></i></div><h4><a href="#" class="stretched-link">Business Copilot</a></h4><p>Ask questions such as summary, top region, top product and recommendations.</p></div></div>
+        </div>
+      </div>
+    </section><!-- /Services Section -->
+
+    <!-- Work Process Section -->
+    <section id="work-process" class="work-process section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>How It Works</h2>
+        <p>A simple workflow for quick business analysis.</p>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-5">
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200"><div class="steps-item"><div class="steps-image"><img src="assets/img/steps/steps-1.png" alt="Upload dataset" class="img-fluid" loading="lazy"></div><div class="steps-content"><div class="steps-number">01</div><h3>Upload Dataset</h3><p>Upload a CSV or Excel file containing sales, revenue, orders, products, customers or transaction data.</p><div class="steps-features"><div class="feature-item"><i class="bi bi-check-circle"></i><span>CSV support</span></div><div class="feature-item"><i class="bi bi-check-circle"></i><span>Excel support</span></div><div class="feature-item"><i class="bi bi-check-circle"></i><span>Auto cleaning</span></div></div></div></div></div>
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300"><div class="steps-item"><div class="steps-image"><img src="assets/img/steps/steps-2.webp" alt="Map columns" class="img-fluid" loading="lazy"></div><div class="steps-content"><div class="steps-number">02</div><h3>Map & Analyze</h3><p>Select the relevant columns from the sidebar and generate dashboards, charts and ML model outputs.</p><div class="steps-features"><div class="feature-item"><i class="bi bi-check-circle"></i><span>Column mapping</span></div><div class="feature-item"><i class="bi bi-check-circle"></i><span>KPIs</span></div><div class="feature-item"><i class="bi bi-check-circle"></i><span>ML results</span></div></div></div></div></div>
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="400"><div class="steps-item"><div class="steps-image"><img src="assets/img/steps/steps-3.png" alt="Ask and export" class="img-fluid" loading="lazy"></div><div class="steps-content"><div class="steps-number">03</div><h3>Ask & Export</h3><p>Use the Business Copilot to ask questions and download a cleaned dataset or business report.</p><div class="steps-features"><div class="feature-item"><i class="bi bi-check-circle"></i><span>Copilot Q&A</span></div><div class="feature-item"><i class="bi bi-check-circle"></i><span>Report export</span></div><div class="feature-item"><i class="bi bi-check-circle"></i><span>Decision support</span></div></div></div></div></div>
+        </div>
+      </div>
+    </section><!-- /Work Process Section -->
+
+    <!-- Call To Action Section -->
+    <section id="call-to-action" class="call-to-action section dark-background">
+      <img src="assets/img/bg/bg-8.webp" alt="">
+      <div class="container">
+        <div class="row" data-aos="zoom-in" data-aos-delay="100">
+          <div class="col-xl-9 text-center text-xl-start">
+            <h3>Ready to test the BI Copilot?</h3>
+            <p>Open the Streamlit app, upload your sales dataset, map the columns and generate insights in minutes.</p>
+          </div>
+          <div class="col-xl-3 cta-btn-container text-center">
+            <a class="cta-btn align-middle" href="http://localhost:8501" target="_blank">Launch App</a>
+          </div>
+        </div>
+      </div>
+    </section><!-- /Call To Action Section -->
+
+    <!-- ML Models Section -->
+    <section id="models" class="pricing section light-background">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Machine Learning Modules</h2>
+        <p>The app includes four applied ML components for business analytics.</p>
+      </div>
+
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-3" data-aos="zoom-in" data-aos-delay="100"><div class="pricing-item model-card"><span class="model-icon"><i class="bi bi-graph-up"></i></span><h3>Sales Forecasting</h3><h4>Linear Regression</h4><ul><li><i class="bi bi-check"></i> <span>Monthly trend modeling</span></li><li><i class="bi bi-check"></i> <span>Next 6 months forecast</span></li><li><i class="bi bi-check"></i> <span>Future sales planning</span></li></ul></div></div>
+          <div class="col-lg-3" data-aos="zoom-in" data-aos-delay="200"><div class="pricing-item featured model-card"><span class="model-icon"><i class="bi bi-cpu"></i></span><h3>Sales Prediction</h3><h4>Random Forest</h4><ul><li><i class="bi bi-check"></i> <span>Feature importance</span></li><li><i class="bi bi-check"></i> <span>MAE, RMSE and R²</span></li><li><i class="bi bi-check"></i> <span>Predictive modeling</span></li></ul></div></div>
+          <div class="col-lg-3" data-aos="zoom-in" data-aos-delay="300"><div class="pricing-item model-card"><span class="model-icon"><i class="bi bi-people"></i></span><h3>Customer Segments</h3><h4>K-Means</h4><ul><li><i class="bi bi-check"></i> <span>High value customers</span></li><li><i class="bi bi-check"></i> <span>Medium value customers</span></li><li><i class="bi bi-check"></i> <span>Low value customers</span></li></ul></div></div>
+          <div class="col-lg-3" data-aos="zoom-in" data-aos-delay="400"><div class="pricing-item model-card"><span class="model-icon"><i class="bi bi-exclamation-triangle"></i></span><h3>Anomaly Detection</h3><h4>Isolation Forest</h4><ul><li><i class="bi bi-check"></i> <span>Unusual sales records</span></li><li><i class="bi bi-check"></i> <span>Outlier detection</span></li><li><i class="bi bi-check"></i> <span>Risk review support</span></li></ul></div></div>
+        </div>
+      </div>
+    </section><!-- /ML Models Section -->
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>App Screenshots</h2>
+        <p>Replace these sample visuals with your own Streamlit dashboard screenshots when final screenshots are ready.</p>
+      </div>
+
+      <div class="container">
+        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+          <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+            <li data-filter="*" class="filter-active">All</li>
+            <li data-filter=".filter-app">Dashboard</li>
+            <li data-filter=".filter-product">ML</li>
+            <li data-filter=".filter-branding">Report</li>
+          </ul>
+
+          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app"><img src="assets/img/portfolio/portfolio-1.png" class="img-fluid" alt="Dashboard preview"><div class="portfolio-info"><h4>Upload Dataset</h4><p>Any sales, retail, finance, order, transaction, or business dataset</p><a href="assets/img/portfolio/portfolio-1.png" title="Upload Dataset" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a></div></div>
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product"><img src="assets/img/portfolio/portfolio-2.png" class="img-fluid" alt="Machine learning preview"><div class="portfolio-info"><h4>Machine Learning</h4><p>Forecasting, prediction, clustering and anomalies</p><a href="assets/img/portfolio/portfolio-2.png" title="Machine Learning" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a></div></div>
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding"><img src="assets/img/portfolio/portfolio-3.png" class="img-fluid" alt="Report preview"><div class="portfolio-info"><h4>KPI Dashboard</h4><p>Sales, orders, customers and trend analysis</p><a href="assets/img/portfolio/portfolio-3.png" title="KPI Dashboard" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a></div></div>
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app"><img src="assets/img/portfolio/portfolio-4.png" class="img-fluid" alt="Automatic Business Insights"><div class="portfolio-info"><h4>Automatic Business Insights</h4><p>summary, top region, top category, top product, top customer, lowest region, monthly trend, recommendations.</p><a href="assets/img/portfolio/portfolio-4.png" title="Automatic Business Insights" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a></div></div>
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product"><img src="assets/img/portfolio/portfolio-5.png" class="img-fluid" alt="Business Copilot"><div class="portfolio-info"><h4>Business Copilot</h4><p>Ask Business Question</p><a href="assets/img/portfolio/portfolio-5.png" title="Machine Learning" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a></div></div>
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding"><img src="assets/img/portfolio/portfolio-6.png" class="img-fluid" alt="Report preview"><div class="portfolio-info"><h4>Report Export</h4><p>Download cleaned CSV and business report</p><a href="assets/img/portfolio/portfolio-6.png" title="Report Export" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a></div></div>
+
+          </div>
+        </div>
+      </div>
+    </section><!-- /Portfolio Section -->
+
+    <!-- Developer Section -->
+    <section id="team" class="team section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Developer</h2>
+        <p>Designed and developed as a portfolio-ready data science and BI project.</p>
+      </div>
+
+      <div class="container">
+        <div class="row gy-4 justify-content-center">
+          <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
+            <div class="team-member d-flex align-items-start">
+              <div class="pic"><img src="assets/img/person/person-m-7.png" class="img-fluid" alt="Developer profile illustration"></div>
+              <div class="member-info">
+                <h4>Rafiu Ali</h4>
+                <span>Data Science, AI & Business Intelligence Developer</span>
+                <p>Built with Python, Streamlit, Pandas, Plotly and Scikit-learn to demonstrate applied analytics, ML and business reporting skills.</p>
+                <div class="social">
+                  <a href="https://github.com/Muhammad-Rafiu-Ali" target="_blank"><i class="bi bi-github"></i></a>
+                  <a href="https://www.linkedin.com/in/rafiu-ali/" target="_blank"><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- /Developer Section -->
+
+    <!-- FAQ Section -->
+    <section id="faq-2" class="faq-2 section light-background">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Frequently Asked Questions</h2>
+        <p>Common questions about the BI Copilot and how to use it.</p>
+      </div>
+
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-10">
+            <div class="faq-container">
+              <div class="faq-item faq-active" data-aos="fade-up" data-aos-delay="200"><i class="faq-icon bi bi-question-circle"></i><h3>What type of dataset does the app support?</h3><div class="faq-content"><p>The app supports CSV and Excel datasets. It works best with sales, revenue, orders, customers, products, categories, regions and date columns.</p></div><i class="faq-toggle bi bi-chevron-right"></i></div>
+              <div class="faq-item" data-aos="fade-up" data-aos-delay="300"><i class="faq-icon bi bi-question-circle"></i><h3>Does it work only with Superstore data?</h3><div class="faq-content"><p>No. The app uses flexible column mapping, so it can work with many sales or business datasets as long as there is at least one numeric value column.</p></div><i class="faq-toggle bi bi-chevron-right"></i></div>
+              <div class="faq-item" data-aos="fade-up" data-aos-delay="400"><i class="faq-icon bi bi-question-circle"></i><h3>Which ML models are used?</h3><div class="faq-content"><p>Linear Regression is used for forecasting, Random Forest for sales prediction, K-Means for customer segmentation and Isolation Forest for anomaly detection.</p></div><i class="faq-toggle bi bi-chevron-right"></i></div>
+              <div class="faq-item" data-aos="fade-up" data-aos-delay="500"><i class="faq-icon bi bi-question-circle"></i><h3>Can users download outputs?</h3><div class="faq-content"><p>Yes. Users can download the cleaned dataset as CSV and a text-based business report containing KPIs, insights and recommendations.</p></div><i class="faq-toggle bi bi-chevron-right"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- /FAQ Section -->
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Project Links</h2>
+        <p>Use these links to open the dashboard, view the repository and connect with the developer.</p>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-4 align-items-center">
+          <div class="col-lg-5">
+            <div class="info-wrap">
+              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200"><i class="bi bi-window-sidebar flex-shrink-0"></i><div><h3>Streamlit App</h3><p><a href="http://localhost:8501" target="_blank">Launch locally at localhost:8501</a></p></div></div>
+              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300"><i class="bi bi-github flex-shrink-0"></i><div><h3>GitHub</h3><p><a href="https://github.com/Muhammad-Rafiu-Ali" target="_blank">github.com/Muhammad-Rafiu-Ali</a></p></div></div>
+              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400"><i class="bi bi-linkedin flex-shrink-0"></i><div><h3>LinkedIn</h3><p><a href="https://www.linkedin.com/in/rafiu-ali/" target="_blank">linkedin.com/in/rafiu-ali</a></p></div></div>
+            </div>
+          </div>
+
+          <div class="col-lg-7">
+            <div class="info-wrap h-100">
+              <h3>Next deployment step</h3>
+              <p>After the Streamlit app is deployed on Streamlit Cloud, replace every <strong>http://localhost:8501</strong> link in this file with the public app URL.</p>
+              <div class="quick-links">
+                <a href="http://localhost:8501" target="_blank"><i class="bi bi-rocket-takeoff"></i> Launch App</a>
+                <a href="https://github.com/Muhammad-Rafiu-Ali" target="_blank"><i class="bi bi-github"></i> GitHub Profile</a>
+                <a href="https://www.linkedin.com/in/rafiu-ali/" target="_blank"><i class="bi bi-linkedin"></i> LinkedIn Profile</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- /Contact Section -->
+
+  </main>
+
+  <footer id="footer" class="footer">
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-5 col-md-6 footer-about">
+          <a href="index.html" class="d-flex align-items-center"><span class="sitename">BI Copilot</span></a>
+          <div class="footer-contact pt-3">
+            <p>AI-Powered Business Intelligence Copilot for SMEs</p>
+            <p>A portfolio project combining BI dashboards, machine learning and business reporting.</p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-3 footer-links">
+          <h4>Project Sections</h4>
+          <ul>
+            <li><i class="bi bi-chevron-right"></i> <a href="#about">Project Overview</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#services">Features</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#models">ML Models</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#faq-2">FAQ</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-4 col-md-12">
+          <h4>Follow / View Project</h4>
+          <p>Connect with the developer and review more work through GitHub and LinkedIn.</p>
+          <div class="social-links d-flex">
+            <a href="https://github.com/Muhammad-Rafiu-Ali" target="_blank"><i class="bi bi-github"></i></a>
+            <a href="https://www.linkedin.com/in/rafiu-ali/" target="_blank"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">BI Copilot</strong> <span>All Rights Reserved</span></p>
+      
+    </div>
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
