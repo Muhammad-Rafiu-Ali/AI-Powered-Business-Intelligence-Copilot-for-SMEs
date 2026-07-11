@@ -342,35 +342,6 @@ Date, Customer, Product, Category, Region, Order ID
 
 ---
 
-## 📸 Screenshots
-
-Add your screenshots inside the `screenshots/` folder and update the links below.
-
-
-### Landing Page
-
-```md
-![Landing Page](screenshots/landing-page.png)
-```
-
-### Dashboard
-
-```md
-![Dashboard](screenshots/dashboard.png)
-```
-
-### Machine Learning Section
-
-```md
-![Machine Learning](screenshots/machine-learning.png)
-```
-
-### Business Copilot
-
-```md
-![Business Copilot](screenshots/business-copilot.png)
-```
-
 ---
 
 ## 🧠 Business Value
